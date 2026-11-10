@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 두 색 화살표가 돌아가며 핸들 테두리를 이룬다: 두 운전자가 번갈아 잡는다는 뜻. 원본은 docs/logo/logo.svg -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M32.75,48.31 A22,22 0 0 1 72.02,41.38"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="6.5" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78.57,36.79 L65.47,45.97 L77.76,49.57 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M75.25,59.69 A22,22 0 0 1 35.98,66.62"
+        android:strokeColor="#4FE3C1"
+        android:strokeLineCap="round"
+        android:strokeWidth="6.5" />
+    <path
+        android:fillColor="#4FE3C1"
+        android:pathData="M29.43,71.21 L42.53,62.03 L30.24,58.43 Z"
+        android:strokeColor="#4FE3C1"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.5" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M47,54 a7,7 0 1 0 14,0 a7,7 0 1 0 -14,0" />
+</vector>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 차량(Android Automotive) 전용 앱이라고 밝힌다. Pleos Connect·AAOS 에뮬레이터에 설치하는 데 필요하다. -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="true" />
+    <!-- 차량 화면은 가로 고정이고 터치 외 입력(로터리 등)도 있다. 폰 전제 기능은 필수가 아니라고 둔다. -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.wifi" android:required="false" />
+
+    <!-- 지도 라이브러리(MapLibre)가 넣는 위치 권한은 빼낸다. 차 위치는 Pleos 내비에서 받고 기기 위치는 쓰지 않는다. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node="remove" />
+
+    <!-- 속도는 런타임 권한(dangerous), 기어는 일반 권한이다. -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <!-- Pleos Vehicle SDK의 기어(Gear) 도메인. Pleos App Market과 협의된 퍼미션만 선언해야 심사를 통과한다. -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <!-- 운전자가 바뀔 때 실내 온도·시트 열선·핸들 열선을 읽고, 운전자가 체크한 것만 바꾼다. App Market 협의가 필요하다. -->
+    <uses-permission android:name="pleos.car.permission.CAR_CLIMATE" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" />
+    <uses-permission android:name="pleos.car.permission.CAR_SEATS" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_SEATS" />
+    <!-- Pleos 음성 합성. 보호 수준 normal이라 선언만 하면 자동으로 받는다. -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <!-- Pleos 음성 인식. 차량 마이크로 듣는다. -->
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+    <!-- 내비 위에 다음 교대·휴식을 작게 띄운다. Pleos는 PiP를 지원하지 않는다. App Market 심사에서 허용되는지 확인이 필요하다. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 교대·휴식 때와 내비 장거리 출발을 차 알림으로 알린다. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- 여행 중 내비가 앱을 덮어도 시스템이 앱을 얼리지 않게 포그라운드 서비스를 띄운다. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- Pleos 내비. 조회와 경로·경유지 변경에 각각 필요하다. -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+    <!-- 내비 화면에 경로 전체 보기를 띄울 때 필요하다. -->
+    <uses-permission android:name="pleos.car.permission.NAVI_CUSTOM_MAP" />
+
+    <application
+        android:name=".ShiftApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <!-- 주행 중에도 화면을 띄우려면 운전 방해 최소화(DO) 앱이라고 밝혀야 한다. 없으면 기어를 D에 넣는 순간 가려진다. -->
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver
+            android:name=".ui.NotificationActionReceiver"
+            android:exported="false" />
+        <!-- 위치·미디어 같은 정해진 종류에 맞지 않아 specialUse로 둔다. 하는 일은 아래 설명대로다. -->
+        <service
+            android:name=".ui.TripService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="장거리 교대 운전 중 운전자별 연속 운전 시간을 기록하고 내비 위에 교대·휴식 시점을 알린다" />
+        </service>
+    </application>
+</manifest>
