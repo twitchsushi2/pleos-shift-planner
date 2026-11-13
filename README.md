@@ -41,13 +41,22 @@
 
 ## 설치와 실행
 
+### 테스트 환경
+
+| 항목 | 내용 |
+|---|---|
+| 에뮬레이터 | Pleos Connect Emulator v2.1.0 (Android 14, API 34, arm64) |
+| 화면 규격 | 2560×1440, 160dpi (가로) |
+| 필요한 설정 | 차량 속도 권한 허용, "다른 앱 위에 표시" 켜기(선택) |
+| APK | [GitHub Release v1.0.0](https://github.com/twitchsushi2/pleos-shift-planner/releases/tag/v1.0.0)의 `ShiftPlanner_release.apk` |
+
 ### APK로 설치
 
-1. [Releases](../../releases) 페이지에서 `shift-planner-1.0.0.apk`를 받습니다.
+1. [Release v1.0.0](https://github.com/twitchsushi2/pleos-shift-planner/releases/tag/v1.0.0) 페이지에서 `ShiftPlanner_release.apk`을 받습니다.
 2. Pleos Connect 에뮬레이터(v2.1.0 이상, arm64)를 켜고 설치합니다.
 
 ```bash
-adb install -r shift-planner-1.0.0.apk
+adb install -r ShiftPlanner_release.apk
 ```
 
 3. 앱을 처음 열면 차량 속도 권한을 묻습니다. 허용해야 운전 시간을 기록합니다.
