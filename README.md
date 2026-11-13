@@ -52,7 +52,7 @@
 
 ### APK로 설치
 
-1. [Release v1.0.0](https://github.com/twitchsushi2/pleos-shift-planner/releases/tag/v1.0.0) 페이지에서 `ShiftPlanner_release.apk`을 받습니다.
+1. [Release v1.0.0](https://github.com/twitchsushi2/pleos-shift-planner/releases/tag/v1.0.0) 페이지에서 `ShiftPlanner_release.apk`를 받습니다.
 2. Pleos Connect 에뮬레이터(v2.1.0 이상, arm64)를 켜고 설치합니다.
 
 ```bash
